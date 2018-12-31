@@ -78,7 +78,7 @@ class Parser {
 				if(self::$debug) echo $this->currentToken. PHP_EOL;
 				$this->currentToken = $this->lexer->getNextToken();	
 			} else {
-				throw new Exception('SINTAX ERROR: Expected ' . Token::translate($type) . ' but ' . Token::translate($this->currentToken->type) . ' found!');
+				throw new Exception('SINTAX ERROR: Expected ' . Token::getTokenName($type) . ' but ' . Token::getTokenName($this->currentToken->type) . ' found!');
 			}
 		} else if (is_array($type)) {
 
@@ -86,7 +86,7 @@ class Parser {
 				if(self::$debug) echo $this->currentToken. PHP_EOL;
 				$this->currentToken = $this->lexer->getNextToken();	
 			} else {
-				throw new Exception('SINTAX ERROR: Expected ' . Token::translate($type) . ' but ' . Token::translate($this->currentToken->type) . ' found!');
+				throw new Exception('SINTAX ERROR: Expected ' . Token::getTokenName($type) . ' but ' . Token::getTokenName($this->currentToken->type) . ' found!');
 			}
 
 		} else {
@@ -96,7 +96,7 @@ class Parser {
 	}
 
 	public function error($type) {
-		throw new Exception('SINTAX ERROR: Expected ' . Token::translate($type) . ' but ' . Token::translate($this->currentToken->type) . ' found!');
+		throw new Exception('SINTAX ERROR: Expected ' . Token::getTokenName($type) . ' but ' . Token::getTokenName($this->currentToken->type) . ' found!');
 	}
 
 
@@ -184,15 +184,17 @@ class Parser {
 		return $node;
 	}
 
-	// term: factor ((MUL | DIV) factor)*
+	// term: factor ((MUL | DIV | FDIV) factor)*
 	public function term() {
 		$node = $this->factor();
-		while (in_array($this->currentToken->type, [Token::MUL, Token::DIV])) {
+		while (in_array($this->currentToken->type, [Token::MUL, Token::DIV, Token::FDIV])) {
 			$op = $this->currentToken;
 			if ($this->currentToken->type == Token::MUL)
 				$this->eat(Token::MUL);
 			elseif ($this->currentToken->type == Token::DIV) 
 				$this->eat(Token::DIV);
+			elseif ($this->currentToken->type == Token::FDIV) 
+				$this->eat(Token::FDIV);
 
 			$node = new BinOp($node, $op, $this->factor());
 		}

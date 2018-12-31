@@ -15,7 +15,7 @@ https://ruslanspivak.com/lsbasi-part1/
     assignment_statement : variable ASSIGN expr
     empty :
     expr: term ((PLUS | MINUS) term)*
-    term: factor ((MUL | DIV) factor)*
+    term: factor ((MUL | DIV | FDIV) factor)*
     factor : PLUS factor
         | MINUS factor
         | INTEGER

@@ -28,7 +28,7 @@ Class Token {
 	public static function getTokenName($id) {
 		if (is_integer($id)) {
 			$refl = new ReflectionClass(self::class);
-			$ids = array_flip($refl->getConstants());
+			$ids = @array_flip($refl->getConstants());
 			return $ids[$id];
 		} else if (is_array($id)) {
 			$txt = '[';
@@ -75,6 +75,7 @@ Class Token {
 	const LPAREN = 11; 
 	const RPAREN = 12; 
 	const ID = 13;
+	const FDIV = 14;
 
 	const KEYWORDS = [
 		'BEGIN',
@@ -165,9 +166,7 @@ class Lexer {
 				case '+': $this->advance(); return new Token(Token::PLUS, '+'); break;
 				case '-': $this->advance(); return new Token(Token::MINUS, '-'); break;
 				case '*': $this->advance(); return new Token(Token::MUL, '*'); break;
-				
-				// This is not integer division (disabled for now)!
-				//case '/': $this->advance(); return new Token(Token::DIV, '/'); break;				
+				case '/': $this->advance(); return new Token(Token::FDIV, '/'); break; // Float Division
 				case '(': $this->advance(); return new Token(Token::LPAREN, '('); break;
 				case ')': $this->advance(); return new Token(Token::RPAREN, ')'); break;
 			}
