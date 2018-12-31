@@ -25,7 +25,7 @@ class Interpreter {
 			case Token::PLUS: return $this->visit($node->left) + $this->visit($node->right);
 			case Token::MINUS: return $this->visit($node->left) - $this->visit($node->right);
 			case Token::MUL: return $this->visit($node->left) * $this->visit($node->right);
-			case Token::DIV: return $this->visit($node->left) / $this->visit($node->right);
+			case Token::DIV: return intdiv($this->visit($node->left), $this->visit($node->right));
 		}		
 	}
 
