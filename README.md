@@ -1,5 +1,8 @@
 # This is a basic pascal interpreter builded in PHP
 
+*Based on the work of Ruslan Spivak*.
+https://ruslanspivak.com/lsbasi-part1/
+
 #### The grammar used is:
 
     program : compound_statement DOT
@@ -40,11 +43,11 @@
 
         ./pascal.php --dot <sourcecode.pas> | dot -Tsvg > output.svg
 
-	This will produce parse the sourcecode.pas, generate a DOT language stile graph,
-	pass it to dot binary, that will produce a SVG image source, and finally write
-	the SVG image source to output.svg file.
+    This will produce parse the sourcecode.pas, generate a DOT language stile graph,
+    pass it to dot binary, that will produce a SVG image source, and finally write
+    the SVG image source to output.svg file.
 
-	The graph generated is a DOT style graph showing the "Abstract Syntax Tree".
-	That is used as an Intermediate Representation (IR) by the interpreter.
-	
-	***Remember, you need to install GraphViz package on your distribution!***
+    The graph generated is a DOT style graph showing the "Abstract Syntax Tree".
+    That is used as an Intermediate Representation (IR) by the interpreter.
+    
+    ***Remember, you need to install GraphViz package on your distribution!***
